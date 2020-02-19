@@ -13,13 +13,13 @@ public final class Cube3 {
   }
  
   public Cube3 apply(Cube3Op op) {
-    int[] afterOp = new int[NUM_FACELETS];
+    int[] result = new int[NUM_FACELETS];
 
     for(int i = 0; i < NUM_FACELETS; ++i) {
-      afterOp[op.imageOf(i)] = facelets[i];
+      result[op.imageOf(i)] = facelets[i];
     }
 
-    return new Cube3(afterOp);
+    return new Cube3(result);
   }
 
   public static Cube3 solved() {
