@@ -11,6 +11,16 @@ public final class Cube3 {
   public int faceletAt(int index) {
     return facelets[index];
   }
+ 
+  public Cube3 apply(Cube3Op op) {
+    int[] afterOp = new int[NUM_FACELETS];
+
+    for(int i = 0; i < NUM_FACELETS; ++i) {
+      afterOp[op.imageOf(i)] = facelets[i];
+    }
+
+    return new Cube3(afterOp);
+  }
 
   public static Cube3 solved() {
     int[] facelets = new int[NUM_FACELETS];
