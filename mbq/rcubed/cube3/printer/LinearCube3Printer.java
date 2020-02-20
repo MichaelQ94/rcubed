@@ -7,7 +7,7 @@ public final class LinearCube3Printer implements Cube3Printer {
   public void print(Cube3 cube) {
     System.out.print("[");
     for (int i = 0; i < Cube3.NUM_FACELETS; ++i) {
-      System.out.print(cube.faceletAt(i) + ", ");
+      System.out.print(cube.faceletAt(i).number() + ", ");
     }
     System.out.println("]");
   }
