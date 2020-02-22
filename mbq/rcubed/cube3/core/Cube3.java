@@ -6,9 +6,6 @@ package mbq.rcubed.cube3.core;
  * A cube is considered solved when slot n is occupied by Facelet n for all 0 <= n <= 53.
 */
 public abstract class Cube3 {
-  public static final int FACELETS_PER_COLOR = 9;
-  public static final int NUM_FACELETS = FACELETS_PER_COLOR * Facelet.NUM_COLORS;
-
   /** Returns the slot occupied by facelet #{@code faceletNumber}. */
   public abstract int locationOf(int faceletNumber);
 

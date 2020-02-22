@@ -4,20 +4,10 @@ package mbq.rcubed.cube3.core;
 public final class Facelet {
   public enum Color { WHITE, ORANGE, GREEN, RED, BLUE, YELLOW }
   public static final int NUM_COLORS = Color.values().length;
+  public static final int FACELETS_PER_COLOR = 9;
+  public static final int NUM_FACELETS = NUM_COLORS * FACELETS_PER_COLOR;
 
-  public int number() {
-    return number;
-  }
-
-  public Color color() {
-    return color;
-  }
-
-  private final int number;
-  private final Color color;
-  
-  Facelet(int number, Color color) {
-    this.number = number;
-    this.color = color;
+  public Color colorOf(int faceletNumber) {
+    return Color.values()[faceletNumber / FACELETS_PER_COLOR];
   }
 }
