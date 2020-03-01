@@ -1,0 +1,30 @@
+{
+  "name": "rcubed",
+  "version": "1.0.0",
+  "description": "Cube Stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelQ94/rcubed.git"
+  },
+  "keywords": [
+    "cube"
+  ],
+  "author": "Kyle the Cat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelQ94/rcubed/issues"
+  },
+  "homepage": "https://github.com/MichaelQ94/rcubed#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}
