@@ -20,6 +20,8 @@ module.exports = {
     filename: "index.bundle.js",
   },
   plugins: [
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      title: "RCubed App"
+    })
   ]
 }
