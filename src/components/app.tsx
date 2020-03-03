@@ -1,9 +1,11 @@
 import * as React from "react";
 
 type AppProps = {
-  message: string
+  message: string;
 };
 
-export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
+const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   return <h1>{props.message}</h1>;
 };
+
+export default App;
