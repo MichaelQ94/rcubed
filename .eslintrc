@@ -2,6 +2,7 @@
   "root": true,
   "env": {
     "node": true,
+    "jest": true,
     "browser": true
   },
   "extends": [
@@ -27,6 +28,10 @@
         "ts": "never",
         "tsx": "never"
       }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.test.ts", "**/*.test.tsx", "**/tests/**"] }
     ]
   },
   "settings": {
