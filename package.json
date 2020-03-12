@@ -17,15 +17,6 @@
       "eslint"
     ]
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MichaelQ94/rcubed.git"
