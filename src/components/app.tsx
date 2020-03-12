@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useStopwatch } from "../hooks/stopwatch";
+import { useStopwatch } from "../hooks/stopwatch"; // TODO: absolute paths
 
 type AppProps = {
   message: string;
