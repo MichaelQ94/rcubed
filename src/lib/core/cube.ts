@@ -1,5 +1,5 @@
-import { CubeIndex } from "./cubeindex";
-import { CubeOp } from "./cubeop";
+import { CubeIndex } from "lib/core/cubeindex";
+import { CubeOp } from "lib/core/cubeop";
 
 export type FaceletNumber = number;
 
