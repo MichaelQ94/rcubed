@@ -1,5 +1,5 @@
-import { CubeIndex } from "./cubeindex"
-import { CubeOp } from "./cubeop"
+import { CubeIndex } from "./cubeindex";
+import { CubeOp } from "./cubeop";
 
 export interface Cube {
   readonly dimension: number;
