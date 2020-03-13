@@ -1,3 +1,5 @@
+export type SlotNumber = number;
+
 export interface CubeIndex {
   readonly face: number;
   readonly row: number;
@@ -11,7 +13,7 @@ export class IndexConverter {
     return new IndexConverter(dimension);
   }
 
-  fromSlotNumber(slotNumber: number): CubeIndex {
+  fromSlotNumber(slotNumber: SlotNumber): CubeIndex {
     const dimSquared = this.dimension ** 2;
     return {
       face: Math.trunc(slotNumber / dimSquared),
@@ -20,7 +22,7 @@ export class IndexConverter {
     };
   }
 
-  toSlotNumber(position: CubeIndex): number {
+  toSlotNumber(position: CubeIndex): SlotNumber {
     return (
       this.dimension ** 2 * position.face +
       this.dimension * position.row +
