@@ -4,11 +4,13 @@
   "description": "Cube Stuff",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode production",
     "clean": "rm -r ./dist",
     "lint": "eslint \"src/**/*.ts*\"",
     "prettify": "yarn -s && prettier --write \"{src,scripts}/**/*.{ts?(x),scss,js}\" && yarn prettify:scripts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --mode development --open --hot",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "lint-staged": {
     "*.ts": [
@@ -29,23 +31,34 @@
   },
   "homepage": "https://github.com/MichaelQ94/rcubed#readme",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.5.0",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^25.1.4",
     "@types/react": "^16.9.23",
     "@typescript-eslint/eslint-plugin": "^2.22.0",
     "@typescript-eslint/parser": "^2.22.0",
     "clean-webpack-plugin": "^3.0.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-react": "^7.18.3",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^1.19.1",
+    "eslint-plugin-react": "^7.18.3",
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-template": "^6.2.0",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.2.1",
     "ts-loader": "^6.2.1",
     "typescript": "^3.8.3",
     "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
     "@types/react-dom": "^16.9.5",

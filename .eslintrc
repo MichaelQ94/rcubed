@@ -1,8 +1,8 @@
-
 {
   "root": true,
   "env": {
     "node": true,
+    "jest": true,
     "browser": true
   },
   "extends": [
@@ -20,24 +20,29 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          "js": "never",
-          "jsx": "never",
-          "ts": "never",
-          "tsx": "never"
-        }
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.test.ts", "**/*.test.tsx", "**/tests/**"] }
     ]
   },
   "settings": {
-    "import/extensions": [".js",".jsx",".ts",".tsx"],
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts",".tsx"]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       "node": {
-        "extensions": [".js",".jsx",".ts",".tsx"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
       }
     }
   }

@@ -7,13 +7,14 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
+        use: ["ts-loader", "eslint-loader"],
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js"]
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
+    modules: [path.resolve("./node_modules"), path.resolve("./src")],
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -23,7 +24,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: false,
       template: require("html-webpack-template"),
-      appMountId: "root"
-    })
-  ]
-}
+      appMountId: "root",
+    }),
+  ],
+};
