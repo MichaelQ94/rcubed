@@ -49,84 +49,84 @@ const CUBE_FACE_3X3 = {
   },
 };
 
-test("3x3 clockwize rotations", () => {
+test("3x3 clockwise rotations", () => {
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.center, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.center, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.center);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.topLeft, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.topLeft, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.topRight);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.top, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.top, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.right);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.topRight, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.topRight, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.bottomRight);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.right, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.right, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.bottom);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.bottomRight, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.bottomRight, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.bottomLeft);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.bottom, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.bottom, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.left);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.bottomLeft, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.bottomLeft, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.topLeft);
   expect(
-    partial.rotateClockwize(CUBE_FACE_3X3.left, CUBE_FACE_3X3.dimension),
+    partial.rotateClockwise(CUBE_FACE_3X3.left, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.top);
 });
 
-test("3x3 counterclockwize rotations", () => {
+test("3x3 counterclockwise rotations", () => {
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_3X3.center,
       CUBE_FACE_3X3.dimension,
     ),
   ).toEqual(CUBE_FACE_3X3.center);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_3X3.topLeft,
       CUBE_FACE_3X3.dimension,
     ),
   ).toEqual(CUBE_FACE_3X3.bottomLeft);
   expect(
-    partial.rotateCounterClockwize(CUBE_FACE_3X3.top, CUBE_FACE_3X3.dimension),
+    partial.rotateCounterClockwise(CUBE_FACE_3X3.top, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.left);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_3X3.topRight,
       CUBE_FACE_3X3.dimension,
     ),
   ).toEqual(CUBE_FACE_3X3.topLeft);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_3X3.right,
       CUBE_FACE_3X3.dimension,
     ),
   ).toEqual(CUBE_FACE_3X3.top);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_3X3.bottomRight,
       CUBE_FACE_3X3.dimension,
     ),
   ).toEqual(CUBE_FACE_3X3.topRight);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_3X3.bottom,
       CUBE_FACE_3X3.dimension,
     ),
   ).toEqual(CUBE_FACE_3X3.right);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_3X3.bottomLeft,
       CUBE_FACE_3X3.dimension,
     ),
   ).toEqual(CUBE_FACE_3X3.bottomRight);
   expect(
-    partial.rotateCounterClockwize(CUBE_FACE_3X3.left, CUBE_FACE_3X3.dimension),
+    partial.rotateCounterClockwise(CUBE_FACE_3X3.left, CUBE_FACE_3X3.dimension),
   ).toEqual(CUBE_FACE_3X3.bottom);
 });
 
@@ -154,42 +154,42 @@ const CUBE_FACE_2X2 = {
   },
 };
 
-test("2x2 clockwize rotations", () => {
+test("2x2 clockwise rotations", () => {
   expect(
-    partial.rotateClockwize(CUBE_FACE_2X2.topLeft, CUBE_FACE_2X2.dimension),
+    partial.rotateClockwise(CUBE_FACE_2X2.topLeft, CUBE_FACE_2X2.dimension),
   ).toEqual(CUBE_FACE_2X2.topRight);
   expect(
-    partial.rotateClockwize(CUBE_FACE_2X2.topRight, CUBE_FACE_2X2.dimension),
+    partial.rotateClockwise(CUBE_FACE_2X2.topRight, CUBE_FACE_2X2.dimension),
   ).toEqual(CUBE_FACE_2X2.bottomRight);
   expect(
-    partial.rotateClockwize(CUBE_FACE_2X2.bottomRight, CUBE_FACE_2X2.dimension),
+    partial.rotateClockwise(CUBE_FACE_2X2.bottomRight, CUBE_FACE_2X2.dimension),
   ).toEqual(CUBE_FACE_2X2.bottomLeft);
   expect(
-    partial.rotateClockwize(CUBE_FACE_2X2.bottomLeft, CUBE_FACE_2X2.dimension),
+    partial.rotateClockwise(CUBE_FACE_2X2.bottomLeft, CUBE_FACE_2X2.dimension),
   ).toEqual(CUBE_FACE_2X2.topLeft);
 });
 
-test("2x2 counterclockwize rotations", () => {
+test("2x2 counterclockwise rotations", () => {
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_2X2.topLeft,
       CUBE_FACE_2X2.dimension,
     ),
   ).toEqual(CUBE_FACE_2X2.bottomLeft);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_2X2.topRight,
       CUBE_FACE_2X2.dimension,
     ),
   ).toEqual(CUBE_FACE_2X2.topLeft);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_2X2.bottomRight,
       CUBE_FACE_2X2.dimension,
     ),
   ).toEqual(CUBE_FACE_2X2.topRight);
   expect(
-    partial.rotateCounterClockwize(
+    partial.rotateCounterClockwise(
       CUBE_FACE_2X2.bottomLeft,
       CUBE_FACE_2X2.dimension,
     ),
