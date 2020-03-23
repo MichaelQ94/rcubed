@@ -49,7 +49,7 @@ const CUBE_FACE_3X3 = {
   },
 };
 
-describe("3x3 clockwize rotation", () => {
+describe("3x3 clockwise rotation", () => {
   it("leaves center in place", () => {
     expect(
       partial.rotateClockwise(CUBE_FACE_3X3.center, CUBE_FACE_3X3.dimension),
