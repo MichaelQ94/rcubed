@@ -1,3 +1,7 @@
+body {
+  font-family: "Helvetica", sans-serif;
+}
+
 /**
  * Sample Style
  */
@@ -5,7 +9,7 @@ $steps: 30;
 @keyframes rainbow-shift {
   @for $i from 0 through $steps {
     #{percentage($i * (1 / $steps))} {
-      color: hsla(random(360), 100, 50, 1)
+      color: hsla(random(360), 100, 50, 1);
     }
   }
 }
@@ -15,15 +19,4 @@ $steps: 30;
   animation-duration: 60s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-}
-
-.container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  
-  .header {
-    grid-column-start: 2;
-    margin: auto;
-    font-family: "Courier New";
-  }
 }
