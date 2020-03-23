@@ -5,6 +5,9 @@ type AppProps = {
   message: string;
 };
 
+/**
+ * Sample App
+ */
 const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   return (
     <div className={"container"}>
