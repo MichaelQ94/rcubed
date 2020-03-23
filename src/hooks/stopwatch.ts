@@ -1,31 +1,44 @@
 import * as React from "react";
 
-type StopwatchState = {
-  time: number;
-  stopped: boolean;
+type InternalStopwatchState = {
+  currentTime: number;
+  startTime: number;
+  running: boolean;
 };
-type StopwatchActions = "TICK" | "STOP" | "START";
+
+type TickAction = {
+  type: "TICK";
+  milliseconds: number;
+};
+type StopAction = {
+  type: "STOP";
+};
+type StartAction = {
+  type: "START";
+};
+type StopwatchActions = TickAction | StopAction | StartAction;
+
 type StopwatchReducer = (
-  state: StopwatchState,
+  state: InternalStopwatchState,
   action: StopwatchActions,
-) => StopwatchState;
+) => InternalStopwatchState;
 
-export type VoidFunction = () => void;
-export type StopwatchHook = [number, VoidFunction, VoidFunction];
+type StartFunction = () => () => void;
+export type StopwatchHookResult = [number, StartFunction];
 
-export function useStopwatch(startTime: number): StopwatchHook {
-  const tickSize = 10;
+export function useStopwatch(): StopwatchHookResult {
+  const timeoutInterval = 10;
   const initState = {
-    time: startTime,
-    stopped: true,
+    currentTime,
+    running: true,
   };
   const [state, dispatch] = React.useReducer<StopwatchReducer>(
     (state, action) => {
-      switch (action) {
+      switch (action.type) {
         case "TICK":
           return {
             ...state,
-            time: state.time + tickSize,
+            time: state.time + action.milliseconds,
           };
         case "STOP":
           return {
@@ -46,18 +59,25 @@ export function useStopwatch(startTime: number): StopwatchHook {
 
   React.useEffect(() => {
     if (!state.stopped) {
-      const id = setTimeout(() => dispatch("TICK"), tickSize);
+      const id = setTimeout(() => dispatch("TICK"), timeoutInterval);
       return () => clearTimeout(id);
     }
   });
 
   function start() {
-    return dispatch("START");
+    dispatch({ type: "START" });
+    return function stop() {
+      dispatch({ type: "STOP" });
+    };
   }
 
-  function stop() {
-    return dispatch("STOP");
-  }
+  return [state.time, start];
+}
 
-  return [state.time, start, stop];
+function start() {
+  const startTime = performance.now();
+  return function stop() {
+    const stopTime = performance.now();
+    return stopTime - startTime;
+  };
 }
