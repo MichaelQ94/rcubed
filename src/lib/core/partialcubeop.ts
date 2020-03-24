@@ -12,13 +12,13 @@ import { CubeIndex } from "lib/core/cubeindex";
  * @param dimension The dimension of the cube being acted on
  */
 export function rotateClockwise(
-  cubeIndex: CubeIndex,
+  { face, row, column }: CubeIndex,
   dimension: number,
 ): CubeIndex {
   return {
-    face: cubeIndex.face,
-    row: cubeIndex.column,
-    column: dimension - 1 - cubeIndex.row,
+    face,
+    row: column,
+    column: dimension - 1 - row,
   };
 }
 
@@ -34,12 +34,12 @@ export function rotateClockwise(
  * @param dimension The dimension of the cube being acted on
  */
 export function rotateCounterClockwise(
-  cubeIndex: CubeIndex,
+  { face, row, column }: CubeIndex,
   dimension: number,
 ): CubeIndex {
   return {
-    face: cubeIndex.face,
-    row: dimension - 1 - cubeIndex.column,
-    column: cubeIndex.row,
+    face,
+    row: dimension - 1 - column,
+    column: row,
   };
 }
