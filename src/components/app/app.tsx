@@ -13,7 +13,11 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
       justifyContent={JustifyContent.Center}
       className="container"
     >
-      <Layout margin={{ x: 1 }} className="header">
+      <Layout
+        margin={{ x: 1, y: 1 }}
+        padding={{ x: 1, y: 1 }}
+        className="header"
+      >
         <h1 className="shifting-rainbow-text">{props.message}</h1>
       </Layout>
     </Layout>

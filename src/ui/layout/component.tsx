@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { PureComponent, ReactElement } from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 import {
   AlignContent,
   AlignItems,
@@ -12,6 +12,7 @@ import {
 import "./style.scss";
 
 interface PublicProps {
+  children?: ReactNode;
   className?: string;
   padding?: Padding;
   margin?: Margin;
@@ -39,51 +40,45 @@ type Padding = Spacing;
 type Margin = Spacing;
 type Props = PublicProps;
 
-class Layout extends PureComponent<Props> {
-  public render(): ReactElement {
-    const paddingClass = classNames([
-      this.props.className,
-      ...this.getPadding(),
-      ...this.getMargin(),
-      this.props.display,
-      this.props.flexDirection,
-      this.props.flexWrap,
-      this.props.justifyContent,
-      this.props.alignItems,
-      this.props.alignContent,
-      this.props.position,
-    ]);
-    return <div className={paddingClass}>{this.props.children}</div>;
-  }
+const getPadding = (padding: Padding = {}): string[] => {
+  const classes: string[] = [];
 
-  private getPadding(): string[] {
-    const classes: string[] = [];
-    const { padding } = this.props;
-
-    if (!padding) {
-      return [];
-    }
-
+  if (padding) {
     Object.keys(padding).forEach(key => {
       classes.push(`p${key}-${padding[key]}`);
     });
-
-    return classes;
   }
 
-  private getMargin(): string[] {
-    const classes: string[] = [];
-    const { margin } = this.props;
+  return classes;
+};
 
-    if (!margin) {
-      return [];
-    }
+const getMargin = (margin: Margin = {}): string[] => {
+  const classes: string[] = [];
 
+  if (margin) {
     Object.keys(margin).forEach(key => {
       classes.push(`m${key}-${margin[key]}`);
     });
-    return classes;
   }
-}
+
+  return classes;
+};
+
+const Layout: FunctionComponent<Props> = (props: Props) => {
+  const paddingClass = classNames([
+    props.className,
+    ...getPadding(props.padding),
+    ...getMargin(props.margin),
+    props.display,
+    props.flexDirection,
+    props.flexWrap,
+    props.justifyContent,
+    props.alignItems,
+    props.alignContent,
+    props.position,
+  ]);
+
+  return <div className={paddingClass}>{props.children}</div>;
+};
 
 export default Layout;

@@ -9,6 +9,15 @@ describe("<Layout /> renders", () => {
     expect(wrapper.exists(".test-selector")).toEqual(true);
   });
 
+  it("should wrap HTML elements", () => {
+    const wrapper = shallow(
+      <Layout>
+        <div className="test-selector" />
+      </Layout>,
+    );
+    expect(wrapper.exists(".test-selector")).toEqual(true);
+  });
+
   describe("should append padding", () => {
     it("accepts x and y", () => {
       const wrapper = shallow(<Layout padding={{ x: 1, y: 1 }} />);
