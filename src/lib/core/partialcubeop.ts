@@ -1,45 +1,70 @@
-import { CubeIndex } from "lib/core/cubeindex";
+import { CubeIndex, Face } from "lib/core/cubeindex";
 
 /**
- * Computes the new (row, column) coordinates of the input CubeIndex after a
- * clockwise rotation. Does not account for movements of indices on adjacent faces.
- *
- * {0, 0}, {0, 1}, {0, 2}      {2, 0}, {1, 0}, {0, 0}
- * {1, 0}, {1, 1}, {1, 2}  ->  {2, 1}, {1, 1}, {0, 1}
- * {2, 0}, {2, 1}, {2, 2}      {2, 2}, {1, 2}, {0, 2}
- *
- * @param cubeIndex The CubeIndex to be rotated
- * @param dimension The dimension of the cube being acted on
+ * CubeIndex literals will be represented as {FRC} where:
+ * F is the face coordinate
+ * R is the row coordinate
+ * C is the column coordinate
  */
-export function rotateClockwise(
+
+/**
+ * Computes the new position of the facelet occupying the input `CubeIndex` after a
+ * clockwise rotation of the face specified by `faceToTurn`. Let F be the value of
+ * `faceToTurn`, then this will apply the tranformation:
+ *
+ *    {F00} {F01} {F02}      {F20} {F10} {F00}
+ *    {F10} {F11} {F12}  ->  {F21} {F11} {F01}
+ *    {F20} {F21} {F22}      {F22} {F12} {F02}
+ *
+ * Facelets occupying all other positions will be unaffected, including those on faces
+ * adjacent to `faceToTurn`.
+ *
+ * @param {CubeIndex} position The starting position of the facelet to be moved
+ * @param {Face} position.face The face coordinate of the facelet's current position
+ * @param {number} position.row The row coordinatte of the facelet's current position
+ * @param {number} position.column The column coordinate of the facelet's current position
+ * @param {Face} faceToTurn The cube face to be rotated by this operation
+ * @param {number} dimension The dimension of the cube being acted on
+ */
+export function clockwiseQuarterTurn(
   { face, row, column }: CubeIndex,
+  faceToTurn: Face,
   dimension: number,
 ): CubeIndex {
-  return {
-    face,
-    row: column,
-    column: dimension - 1 - row,
-  };
+  return face === faceToTurn
+    ? {
+        face,
+        row: column,
+        column: dimension - 1 - row,
+      }
+    : { face, row, column };
 }
 
 /**
- * Computes the new (row, column) coordinates of the input CubeIndex after a
- * counterclockwise rotation. Does not account for movements of indices on adjacent faces.
+ * Computes the new position of the facelet occupying the input `CubeIndex` after a
+ * counterclockwise rotation of the face specified by `faceToTurn`. Let F be the value of
+ * `faceToTurn`, then this will apply the tranformation:
  *
- * {0, 0}, {0, 1}, {0, 2}      {0, 2}, {1, 2}, {2, 2}
- * {1, 0}, {1, 1}, {1, 2}  ->  {0, 1}, {1, 1}, {2, 1}
- * {2, 0}, {2, 1}, {2, 2}      {0, 0}, {1, 0}, {2, 0}
+ *    {F00} {F01} {F02}      {F02} {F12} {F22}
+ *    {F10} {F11} {F12}  ->  {F01} {F11} {F21}
+ *    {F20} {F21} {F22}      {F00} {F10} {F20}
+ *
+ * Facelets occupying all other positions will unaffected, including those on faces
+ * adjacent to `faceToTurn`.
  *
  * @param cubeIndex The CubeIndex to be rotated
  * @param dimension The dimension of the cube being acted on
  */
-export function rotateCounterClockwise(
+export function counterClockwiseQuarterTurn(
   { face, row, column }: CubeIndex,
+  faceToTurn: Face,
   dimension: number,
 ): CubeIndex {
-  return {
-    face,
-    row: dimension - 1 - column,
-    column: row,
-  };
+  return face === faceToTurn
+    ? {
+        face,
+        row: dimension - 1 - column,
+        column: row,
+      }
+    : { face, row, column };
 }
