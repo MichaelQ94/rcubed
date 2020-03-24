@@ -1,5 +1,21 @@
 export type SlotNumber = number;
 
+/**
+ * Numbering scheme for faces:
+ *
+ *       {U/0}
+ * {L/1} {F/2} {R/3} {B/4}
+ *       {D/5}
+ */
+export const enum Face {
+  U,
+  L,
+  F,
+  R,
+  B,
+  D,
+}
+
 export interface CubeIndex {
   readonly face: number;
   readonly row: number;
