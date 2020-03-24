@@ -49,41 +49,64 @@ const CUBE_FACE_3X3 = {
   },
 };
 
-describe("3x3 clockwise rotation", () => {
+describe("3x3 clockwise quarter turn", () => {
+  const faceToTurn = 0;
+
   it("leaves center in place", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_3X3.center, CUBE_FACE_3X3.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_3X3.center,
+        faceToTurn,
+        CUBE_FACE_3X3.dimension,
+      ),
     ).toEqual(CUBE_FACE_3X3.center);
   });
 
   it("sends top left corner to top right corner", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_3X3.topLeft, CUBE_FACE_3X3.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_3X3.topLeft,
+        faceToTurn,
+        CUBE_FACE_3X3.dimension,
+      ),
     ).toEqual(CUBE_FACE_3X3.topRight);
   });
 
   it("sends top edge to right edge", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_3X3.top, CUBE_FACE_3X3.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_3X3.top,
+        faceToTurn,
+        CUBE_FACE_3X3.dimension,
+      ),
     ).toEqual(CUBE_FACE_3X3.right);
   });
 
   it("sends top right corner to bottom right corner", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_3X3.topRight, CUBE_FACE_3X3.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_3X3.topRight,
+        faceToTurn,
+        CUBE_FACE_3X3.dimension,
+      ),
     ).toEqual(CUBE_FACE_3X3.bottomRight);
   });
 
   it("sends right edge to bottom edge", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_3X3.right, CUBE_FACE_3X3.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_3X3.right,
+        faceToTurn,
+        CUBE_FACE_3X3.dimension,
+      ),
     ).toEqual(CUBE_FACE_3X3.bottom);
   });
 
   it("sends bottom right corner to bottom left corner", () => {
     expect(
-      partial.rotateClockwise(
+      partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomRight,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottomLeft);
@@ -91,14 +114,19 @@ describe("3x3 clockwise rotation", () => {
 
   it("sends bottom edge to left edge", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_3X3.bottom, CUBE_FACE_3X3.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_3X3.bottom,
+        faceToTurn,
+        CUBE_FACE_3X3.dimension,
+      ),
     ).toEqual(CUBE_FACE_3X3.left);
   });
 
   it("sends bottom left corner to top left corner", () => {
     expect(
-      partial.rotateClockwise(
+      partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomLeft,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.topLeft);
@@ -106,16 +134,23 @@ describe("3x3 clockwise rotation", () => {
 
   it("sends left edge to top edge", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_3X3.left, CUBE_FACE_3X3.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_3X3.left,
+        faceToTurn,
+        CUBE_FACE_3X3.dimension,
+      ),
     ).toEqual(CUBE_FACE_3X3.top);
   });
 });
 
-describe("3x3 counterclockwise rotation", () => {
+describe("3x3 counterclockwise quarter turn", () => {
+  const faceToTurn = 0;
+
   it("leaves center in place", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.center,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.center);
@@ -123,8 +158,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends top left corner to bottom left corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.topLeft,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottomLeft);
@@ -132,8 +168,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends top edge to left edge", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.top,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.left);
@@ -141,8 +178,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends top right corner to top left corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.topRight,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.topLeft);
@@ -150,8 +188,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends right edge to top edge", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.right,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.top);
@@ -159,8 +198,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends bottom right corner to top right corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomRight,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.topRight);
@@ -168,8 +208,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends bottom edge to right edge", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.bottom,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.right);
@@ -177,8 +218,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends bottom left corner to bottom right corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomLeft,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottomRight);
@@ -186,8 +228,9 @@ describe("3x3 counterclockwise rotation", () => {
 
   it("sends left edge to bottom edge", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.left,
+        faceToTurn,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottom);
@@ -218,23 +261,34 @@ const CUBE_FACE_2X2 = {
   },
 };
 
-describe("2x2 clockwise rotation", () => {
+describe("2x2 clockwise quarter turn", () => {
+  const faceToTurn = 0;
+
   it("sends top left corner to top right corner", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_2X2.topLeft, CUBE_FACE_2X2.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_2X2.topLeft,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
     ).toEqual(CUBE_FACE_2X2.topRight);
   });
 
   it("sends top right corner to bottom right corner", () => {
     expect(
-      partial.rotateClockwise(CUBE_FACE_2X2.topRight, CUBE_FACE_2X2.dimension),
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_2X2.topRight,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
     ).toEqual(CUBE_FACE_2X2.bottomRight);
   });
 
   it("sends bottom right corner to bottom left corner", () => {
     expect(
-      partial.rotateClockwise(
+      partial.clockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomRight,
+        faceToTurn,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.bottomLeft);
@@ -242,19 +296,23 @@ describe("2x2 clockwise rotation", () => {
 
   it("sends bottom left corner to top left corner", () => {
     expect(
-      partial.rotateClockwise(
+      partial.clockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomLeft,
+        faceToTurn,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.topLeft);
   });
 });
 
-describe("2x2 counterclockwise rotation", () => {
+describe("2x2 counterclockwise quarter turn", () => {
+  const faceToTurn = 0;
+
   it("sends top left corner to bottom left corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.topLeft,
+        faceToTurn,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.bottomLeft);
@@ -262,8 +320,9 @@ describe("2x2 counterclockwise rotation", () => {
 
   it("sends top right corner to top left corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.topRight,
+        faceToTurn,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.topLeft);
@@ -271,8 +330,9 @@ describe("2x2 counterclockwise rotation", () => {
 
   it("sends bottom right corner to top right corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomRight,
+        faceToTurn,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.topRight);
@@ -280,8 +340,9 @@ describe("2x2 counterclockwise rotation", () => {
 
   it("sends bottom left corner to bottom right corner", () => {
     expect(
-      partial.rotateCounterClockwise(
+      partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomLeft,
+        faceToTurn,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.bottomRight);
