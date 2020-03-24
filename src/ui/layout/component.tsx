@@ -43,11 +43,9 @@ type Props = PublicProps;
 const getPadding = (padding: Padding = {}): string[] => {
   const classes: string[] = [];
 
-  if (padding) {
-    Object.keys(padding).forEach(key => {
-      classes.push(`p${key}-${padding[key]}`);
-    });
-  }
+  Object.keys(padding).forEach(key => {
+    classes.push(`p${key}-${padding[key]}`);
+  });
 
   return classes;
 };
@@ -55,11 +53,9 @@ const getPadding = (padding: Padding = {}): string[] => {
 const getMargin = (margin: Margin = {}): string[] => {
   const classes: string[] = [];
 
-  if (margin) {
-    Object.keys(margin).forEach(key => {
-      classes.push(`m${key}-${margin[key]}`);
-    });
-  }
+  Object.keys(margin).forEach(key => {
+    classes.push(`m${key}-${margin[key]}`);
+  });
 
   return classes;
 };
