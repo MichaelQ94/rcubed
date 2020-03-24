@@ -21,8 +21,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run: yarn test
-      - codecov/upload:
-          file: { { coverage_report_filepath } }
+      - codecov/upload
 workflows:
   build-and-test:
     jobs:
