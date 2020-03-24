@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { Component, ReactElement } from "react";
+import React, { PureComponent, ReactElement } from "react";
 import {
   AlignContent,
   AlignItems,
@@ -25,21 +25,21 @@ interface PublicProps {
 }
 
 interface Spacing {
-  y?: size;
-  x?: size;
-  t?: size;
-  b?: size;
-  r?: size;
-  l?: size;
-  [key: string]: size | undefined;
+  y?: Size;
+  x?: Size;
+  t?: Size;
+  b?: Size;
+  r?: Size;
+  l?: Size;
+  [key: string]: Size | undefined;
 }
 
-type size = 1 | 2 | 3 | 4 | 5;
+type Size = 1 | 2 | 3 | 4 | 5;
 type Padding = Spacing;
 type Margin = Spacing;
 type Props = PublicProps;
 
-class Layout extends Component<Props> {
+class Layout extends PureComponent<Props> {
   public render(): ReactElement {
     const paddingClass = classNames([
       this.props.className,
