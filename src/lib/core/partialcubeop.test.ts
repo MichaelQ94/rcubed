@@ -1,4 +1,29 @@
+import { CubeIndex, Face, FACES } from "./cubeindex";
 import * as partial from "./partialcubeop";
+
+const CUBE_FACE_2X2 = {
+  dimension: 2,
+  topLeft: {
+    face: 0,
+    row: 0,
+    column: 0,
+  },
+  topRight: {
+    face: 0,
+    row: 0,
+    column: 1,
+  },
+  bottomLeft: {
+    face: 0,
+    row: 1,
+    column: 0,
+  },
+  bottomRight: {
+    face: 0,
+    row: 1,
+    column: 1,
+  },
+};
 
 const CUBE_FACE_3X3 = {
   dimension: 3,
@@ -48,6 +73,130 @@ const CUBE_FACE_3X3 = {
     column: 2,
   },
 };
+
+function expectAllOtherFacesUnaffected(
+  cubeFace: typeof CUBE_FACE_3X3 | typeof CUBE_FACE_2X2,
+  operation: (cubeIndex: CubeIndex, face: Face, dimension: number) => CubeIndex,
+): void {
+  Object.entries(cubeFace)
+    .filter(([key, _]) => key !== "dimension")
+    // For each CubeIndex on the 3x3 cube face...
+    .forEach(([key, value]) => {
+      const cubeIndex = value as CubeIndex;
+
+      // For each face other than this one...
+      FACES.filter(face => face !== cubeIndex.face).forEach(face => {
+        // Compute the corresponding CubeIndex on that face...
+        const copyOnOtherFace = {
+          face,
+          row: cubeIndex.row,
+          column: cubeIndex.column,
+        };
+
+        // ...and expect it to remain in place when this face is turned
+        it(`leavues ${key} of face ${face} in place`, () => {
+          expect(
+            operation(copyOnOtherFace, cubeIndex.face, CUBE_FACE_3X3.dimension),
+          ).toEqual(copyOnOtherFace);
+        });
+      });
+    });
+}
+
+describe("2x2 clockwise quarter turn", () => {
+  const faceToTurn = 0;
+
+  it("sends top left corner to top right corner", () => {
+    expect(
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_2X2.topLeft,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.topRight);
+  });
+
+  it("sends top right corner to bottom right corner", () => {
+    expect(
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_2X2.topRight,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.bottomRight);
+  });
+
+  it("sends bottom right corner to bottom left corner", () => {
+    expect(
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_2X2.bottomRight,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.bottomLeft);
+  });
+
+  it("sends bottom left corner to top left corner", () => {
+    expect(
+      partial.clockwiseQuarterTurn(
+        CUBE_FACE_2X2.bottomLeft,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.topLeft);
+  });
+
+  expectAllOtherFacesUnaffected(CUBE_FACE_2X2, partial.clockwiseQuarterTurn);
+});
+
+describe("2x2 counterclockwise quarter turn", () => {
+  const faceToTurn = 0;
+
+  it("sends top left corner to bottom left corner", () => {
+    expect(
+      partial.counterClockwiseQuarterTurn(
+        CUBE_FACE_2X2.topLeft,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.bottomLeft);
+  });
+
+  it("sends top right corner to top left corner", () => {
+    expect(
+      partial.counterClockwiseQuarterTurn(
+        CUBE_FACE_2X2.topRight,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.topLeft);
+  });
+
+  it("sends bottom right corner to top right corner", () => {
+    expect(
+      partial.counterClockwiseQuarterTurn(
+        CUBE_FACE_2X2.bottomRight,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.topRight);
+  });
+
+  it("sends bottom left corner to bottom right corner", () => {
+    expect(
+      partial.counterClockwiseQuarterTurn(
+        CUBE_FACE_2X2.bottomLeft,
+        faceToTurn,
+        CUBE_FACE_2X2.dimension,
+      ),
+    ).toEqual(CUBE_FACE_2X2.bottomRight);
+  });
+
+  expectAllOtherFacesUnaffected(
+    CUBE_FACE_2X2,
+    partial.counterClockwiseQuarterTurn,
+  );
+});
 
 describe("3x3 clockwise quarter turn", () => {
   const faceToTurn = 0;
@@ -141,6 +290,8 @@ describe("3x3 clockwise quarter turn", () => {
       ),
     ).toEqual(CUBE_FACE_3X3.top);
   });
+
+  expectAllOtherFacesUnaffected(CUBE_FACE_3X3, partial.clockwiseQuarterTurn);
 });
 
 describe("3x3 counterclockwise quarter turn", () => {
@@ -235,116 +386,9 @@ describe("3x3 counterclockwise quarter turn", () => {
       ),
     ).toEqual(CUBE_FACE_3X3.bottom);
   });
-});
 
-const CUBE_FACE_2X2 = {
-  dimension: 2,
-  topLeft: {
-    face: 0,
-    row: 0,
-    column: 0,
-  },
-  topRight: {
-    face: 0,
-    row: 0,
-    column: 1,
-  },
-  bottomLeft: {
-    face: 0,
-    row: 1,
-    column: 0,
-  },
-  bottomRight: {
-    face: 0,
-    row: 1,
-    column: 1,
-  },
-};
-
-describe("2x2 clockwise quarter turn", () => {
-  const faceToTurn = 0;
-
-  it("sends top left corner to top right corner", () => {
-    expect(
-      partial.clockwiseQuarterTurn(
-        CUBE_FACE_2X2.topLeft,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.topRight);
-  });
-
-  it("sends top right corner to bottom right corner", () => {
-    expect(
-      partial.clockwiseQuarterTurn(
-        CUBE_FACE_2X2.topRight,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.bottomRight);
-  });
-
-  it("sends bottom right corner to bottom left corner", () => {
-    expect(
-      partial.clockwiseQuarterTurn(
-        CUBE_FACE_2X2.bottomRight,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.bottomLeft);
-  });
-
-  it("sends bottom left corner to top left corner", () => {
-    expect(
-      partial.clockwiseQuarterTurn(
-        CUBE_FACE_2X2.bottomLeft,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.topLeft);
-  });
-});
-
-describe("2x2 counterclockwise quarter turn", () => {
-  const faceToTurn = 0;
-
-  it("sends top left corner to bottom left corner", () => {
-    expect(
-      partial.counterClockwiseQuarterTurn(
-        CUBE_FACE_2X2.topLeft,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.bottomLeft);
-  });
-
-  it("sends top right corner to top left corner", () => {
-    expect(
-      partial.counterClockwiseQuarterTurn(
-        CUBE_FACE_2X2.topRight,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.topLeft);
-  });
-
-  it("sends bottom right corner to top right corner", () => {
-    expect(
-      partial.counterClockwiseQuarterTurn(
-        CUBE_FACE_2X2.bottomRight,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.topRight);
-  });
-
-  it("sends bottom left corner to bottom right corner", () => {
-    expect(
-      partial.counterClockwiseQuarterTurn(
-        CUBE_FACE_2X2.bottomLeft,
-        faceToTurn,
-        CUBE_FACE_2X2.dimension,
-      ),
-    ).toEqual(CUBE_FACE_2X2.bottomRight);
-  });
+  expectAllOtherFacesUnaffected(
+    CUBE_FACE_3X3,
+    partial.counterClockwiseQuarterTurn,
+  );
 });
