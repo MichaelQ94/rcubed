@@ -16,6 +16,8 @@ export const enum Face {
   D,
 }
 
+export const FACES = [Face.U, Face.L, Face.F, Face.R, Face.B, Face.D];
+
 export interface CubeIndex {
   readonly face: number;
   readonly row: number;
