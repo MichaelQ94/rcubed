@@ -20,9 +20,6 @@ import { CubeIndex, Face } from "lib/core/cubeindex";
  * adjacent to `faceToTurn`.
  *
  * @param {CubeIndex} position The starting position of the facelet to be moved
- * @param {Face} position.face The face coordinate of the facelet's current position
- * @param {number} position.row The row coordinatte of the facelet's current position
- * @param {number} position.column The column coordinate of the facelet's current position
  * @param {Face} faceToTurn The cube face to be rotated by this operation
  * @param {number} dimension The dimension of the cube being acted on
  */
@@ -53,9 +50,6 @@ export function clockwiseQuarterTurn(
  * adjacent to `faceToTurn`.
  *
  * @param {CubeIndex} position The starting position of the facelet to be moved
- * @param {Face} position.face The face coordinate of the facelet's current position
- * @param {number} position.row The row coordinatte of the facelet's current position
- * @param {number} position.column The column coordinate of the facelet's current position
  * @param {Face} faceToTurn The cube face to be rotated by this operation
  * @param dimension The dimension of the cube being acted on
  */
