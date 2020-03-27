@@ -80,7 +80,7 @@ function expectAllOtherFacesUnaffected(
 ): void {
   Object.entries(cubeFace)
     .filter(([key, _]) => key !== "dimension")
-    // For each CubeIndex on the 3x3 cube face...
+    // For each CubeIndex on the given cube face...
     .forEach(([key, value]) => {
       const cubeIndex = value as CubeIndex;
 
@@ -94,7 +94,7 @@ function expectAllOtherFacesUnaffected(
         };
 
         // ...and expect it to remain in place when this face is turned
-        it(`leavues ${key} of face ${face} in place`, () => {
+        it(`leaves ${key} of face ${face} in place`, () => {
           expect(
             operation(copyOnOtherFace, cubeIndex.face, CUBE_FACE_3X3.dimension),
           ).toEqual(copyOnOtherFace);
@@ -104,13 +104,11 @@ function expectAllOtherFacesUnaffected(
 }
 
 describe("2x2 clockwise quarter turn", () => {
-  const faceToTurn = 0;
-
   it("sends top left corner to top right corner", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_2X2.topLeft,
-        faceToTurn,
+        CUBE_FACE_2X2.topLeft.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.topRight);
@@ -120,7 +118,7 @@ describe("2x2 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_2X2.topRight,
-        faceToTurn,
+        CUBE_FACE_2X2.topRight.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.bottomRight);
@@ -130,7 +128,7 @@ describe("2x2 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomRight,
-        faceToTurn,
+        CUBE_FACE_2X2.bottomRight.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.bottomLeft);
@@ -140,7 +138,7 @@ describe("2x2 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomLeft,
-        faceToTurn,
+        CUBE_FACE_2X2.bottomLeft.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.topLeft);
@@ -150,13 +148,11 @@ describe("2x2 clockwise quarter turn", () => {
 });
 
 describe("2x2 counterclockwise quarter turn", () => {
-  const faceToTurn = 0;
-
   it("sends top left corner to bottom left corner", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.topLeft,
-        faceToTurn,
+        CUBE_FACE_2X2.topLeft.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.bottomLeft);
@@ -166,7 +162,7 @@ describe("2x2 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.topRight,
-        faceToTurn,
+        CUBE_FACE_2X2.topRight.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.topLeft);
@@ -176,7 +172,7 @@ describe("2x2 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomRight,
-        faceToTurn,
+        CUBE_FACE_2X2.bottomRight.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.topRight);
@@ -186,7 +182,7 @@ describe("2x2 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_2X2.bottomLeft,
-        faceToTurn,
+        CUBE_FACE_2X2.bottomLeft.face,
         CUBE_FACE_2X2.dimension,
       ),
     ).toEqual(CUBE_FACE_2X2.bottomRight);
@@ -199,13 +195,11 @@ describe("2x2 counterclockwise quarter turn", () => {
 });
 
 describe("3x3 clockwise quarter turn", () => {
-  const faceToTurn = 0;
-
   it("leaves center in place", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.center,
-        faceToTurn,
+        CUBE_FACE_3X3.center.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.center);
@@ -215,7 +209,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.topLeft,
-        faceToTurn,
+        CUBE_FACE_3X3.topLeft.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.topRight);
@@ -225,7 +219,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.top,
-        faceToTurn,
+        CUBE_FACE_3X3.top.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.right);
@@ -235,7 +229,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.topRight,
-        faceToTurn,
+        CUBE_FACE_3X3.topRight.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottomRight);
@@ -245,7 +239,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.right,
-        faceToTurn,
+        CUBE_FACE_3X3.right.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottom);
@@ -255,7 +249,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomRight,
-        faceToTurn,
+        CUBE_FACE_3X3.bottomRight.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottomLeft);
@@ -265,7 +259,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.bottom,
-        faceToTurn,
+        CUBE_FACE_3X3.bottom.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.left);
@@ -275,7 +269,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomLeft,
-        faceToTurn,
+        CUBE_FACE_3X3.bottomLeft.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.topLeft);
@@ -285,7 +279,7 @@ describe("3x3 clockwise quarter turn", () => {
     expect(
       partial.clockwiseQuarterTurn(
         CUBE_FACE_3X3.left,
-        faceToTurn,
+        CUBE_FACE_3X3.left.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.top);
@@ -295,13 +289,11 @@ describe("3x3 clockwise quarter turn", () => {
 });
 
 describe("3x3 counterclockwise quarter turn", () => {
-  const faceToTurn = 0;
-
   it("leaves center in place", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.center,
-        faceToTurn,
+        CUBE_FACE_3X3.center.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.center);
@@ -311,7 +303,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.topLeft,
-        faceToTurn,
+        CUBE_FACE_3X3.topLeft.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottomLeft);
@@ -321,7 +313,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.top,
-        faceToTurn,
+        CUBE_FACE_3X3.top.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.left);
@@ -331,7 +323,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.topRight,
-        faceToTurn,
+        CUBE_FACE_3X3.topRight.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.topLeft);
@@ -341,7 +333,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.right,
-        faceToTurn,
+        CUBE_FACE_3X3.right.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.top);
@@ -351,7 +343,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomRight,
-        faceToTurn,
+        CUBE_FACE_3X3.bottomRight.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.topRight);
@@ -361,7 +353,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.bottom,
-        faceToTurn,
+        CUBE_FACE_3X3.bottom.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.right);
@@ -371,7 +363,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.bottomLeft,
-        faceToTurn,
+        CUBE_FACE_3X3.bottomLeft.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottomRight);
@@ -381,7 +373,7 @@ describe("3x3 counterclockwise quarter turn", () => {
     expect(
       partial.counterClockwiseQuarterTurn(
         CUBE_FACE_3X3.left,
-        faceToTurn,
+        CUBE_FACE_3X3.left.face,
         CUBE_FACE_3X3.dimension,
       ),
     ).toEqual(CUBE_FACE_3X3.bottom);
