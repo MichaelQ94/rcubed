@@ -1,0 +1,22 @@
+body {
+  font-family: "Helvetica", sans-serif;
+}
+
+/**
+ * Sample Style
+ */
+$steps: 30;
+@keyframes rainbow-shift {
+  @for $i from 0 through $steps {
+    #{percentage($i * (1 / $steps))} {
+      color: hsla(random(360), 100, 50, 1);
+    }
+  }
+}
+
+.shifting-rainbow-text {
+  animation-name: rainbow-shift;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
