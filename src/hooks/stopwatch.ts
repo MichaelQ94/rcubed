@@ -1,83 +1,51 @@
-import * as React from "react";
+import { useState, useEffect, useMemo } from "react";
 
-type InternalStopwatchState = {
-  currentTime: number;
-  startTime: number;
-  running: boolean;
+type StartFunction = () => StopFunction;
+type StopFunction = () => void;
+
+export type StopwatchHook = {
+  elapsedTime: number;
+  isRunning: boolean;
+  start: StartFunction;
+  stop: StopFunction;
 };
 
-type TickAction = {
-  type: "TICK";
-  milliseconds: number;
-};
-type StopAction = {
-  type: "STOP";
-};
-type StartAction = {
-  type: "START";
-};
-type StopwatchActions = TickAction | StopAction | StartAction;
+export function useStopwatch(): StopwatchHook {
+  const checkWindow = 10; // milliseconds
+  const [startTime, setStartTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isRunning, setRunning] = useState(false);
 
-type StopwatchReducer = (
-  state: InternalStopwatchState,
-  action: StopwatchActions,
-) => InternalStopwatchState;
-
-type StartFunction = () => () => void;
-export type StopwatchHookResult = [number, StartFunction];
-
-export function useStopwatch(): StopwatchHookResult {
-  const timeoutInterval = 10;
-  const initState = {
+  const elapsedTime = useMemo(() => currentTime - startTime, [
+    startTime,
     currentTime,
-    running: true,
-  };
-  const [state, dispatch] = React.useReducer<StopwatchReducer>(
-    (state, action) => {
-      switch (action.type) {
-        case "TICK":
-          return {
-            ...state,
-            time: state.time + action.milliseconds,
-          };
-        case "STOP":
-          return {
-            ...state,
-            stopped: true,
-          };
-        case "START":
-          return {
-            ...state,
-            stopped: false,
-          };
-        default:
-          return state;
-      }
-    },
-    initState,
-  );
+  ]);
 
-  React.useEffect(() => {
-    if (!state.stopped) {
-      const id = setTimeout(() => dispatch("TICK"), timeoutInterval);
-      return () => clearTimeout(id);
+  useEffect(() => {
+    if (isRunning) {
+      setStartTime(performance.now());
+      const id = setInterval(
+        () => setCurrentTime(performance.now()),
+        checkWindow,
+      );
+      return () => {
+        setCurrentTime(performance.now());
+        clearInterval(id);
+      };
     }
-  });
+    return undefined;
+  }, [isRunning]);
 
-  function start() {
-    dispatch({ type: "START" });
-    return function stop() {
-      dispatch({ type: "STOP" });
-    };
-  }
+  const stop = () => setRunning(false);
+  const start = () => {
+    setRunning(true);
+    return stop;
+  };
 
-  return [state.time, start];
-}
-
-function start() {
-  const startTime = performance.now();
-  return function stop() {
-    const stopTime = performance.now();
-    return stopTime - startTime;
+  return {
+    elapsedTime,
+    isRunning,
+    start,
+    stop,
   };
 }
