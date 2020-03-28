@@ -78,26 +78,28 @@ const CUBE_FACE_3X3 = {
   },
 };
 
+type CubeFace = typeof CUBE_FACE_2X2 | typeof CUBE_FACE_3X3;
+
 function expectAllOtherFacesUnaffected(
-  cubeFace: typeof CUBE_FACE_3X3 | typeof CUBE_FACE_2X2,
+  { dimension, positions }: CubeFace,
   operation: (cubeIndex: CubeIndex, face: Face, dimension: number) => CubeIndex,
 ): void {
   // For each position on the given cube face...
-  Object.entries(cubeFace.positions).forEach(([name, cubeIndex]) => {
+  Object.entries(positions).forEach(([name, { face, row, column }]) => {
     // For each face other than this one...
-    FACES.filter(face => face !== cubeIndex.face).forEach(face => {
-      // Compute the corresponding CubeIndex on that face...
+    FACES.filter(otherFace => otherFace !== face).forEach(otherFace => {
+      // Compute the corresponding position on that face...
       const copyOnOtherFace = {
-        face,
-        row: cubeIndex.row,
-        column: cubeIndex.column,
+        face: otherFace,
+        row,
+        column,
       };
 
-      // ...and expect it to remain in place when this face is turned.
+      // ...and expect it be unaffected when this face is turned.
       it(`leaves ${name} of face ${face} in place`, () => {
-        expect(
-          operation(copyOnOtherFace, cubeIndex.face, cubeFace.dimension),
-        ).toEqual(copyOnOtherFace);
+        expect(operation(copyOnOtherFace, face, dimension)).toEqual(
+          copyOnOtherFace,
+        );
       });
     });
   });
