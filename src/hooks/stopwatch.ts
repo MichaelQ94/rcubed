@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-type StartFunction = () => StopFunction;
+type StartFunction = () => void;
 type StopFunction = () => void;
 
 export type StopwatchHook = {
@@ -36,10 +36,7 @@ export function useStopwatch(
   }, [approxUpdateResolution, isRunning]);
 
   const stop: StopFunction = () => setRunning(false);
-  const start: StartFunction = () => {
-    setRunning(true);
-    return stop;
-  };
+  const start: StartFunction = () => setRunning(true);
 
   return {
     elapsedTime,
