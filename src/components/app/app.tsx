@@ -9,12 +9,15 @@ type AppProps = {
 
 const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const { elapsedTime, start, stop, isRunning } = useStopwatch();
-  const elapsedSeconds = React.useMemo(() => (elapsedTime / 1000).toFixed(2), [
-    elapsedTime,
-  ]);
-  const toggle = React.useCallback(() => (isRunning ? stop() : start()), [
+  const buttonLabel = React.useMemo(() => (isRunning ? "Stop" : "Start"), [
     isRunning,
   ]);
+  const clickHandler = React.useCallback(() => (isRunning ? stop() : start()), [
+    start,
+    stop,
+    isRunning,
+  ]);
+  const elapsedSeconds = (elapsedTime / 1000).toFixed(2);
 
   return (
     <Layout
@@ -29,7 +32,7 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
       >
         <h1 className="shifting-rainbow-text">{props.message}</h1>
         <h2 className="shifting-rainbow-text">{elapsedSeconds}</h2>
-        <button onClick={() => toggle()}>{isRunning ? "Stop" : "Start"}</button>
+        <button onClick={clickHandler}>{buttonLabel}</button>
       </Layout>
     </Layout>
   );

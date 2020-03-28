@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 type StartFunction = () => StopFunction;
 type StopFunction = () => void;
@@ -10,34 +10,33 @@ export type StopwatchHook = {
   stop: StopFunction;
 };
 
-export function useStopwatch(): StopwatchHook {
-  const checkWindow = 10; // milliseconds
-  const [startTime, setStartTime] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
+/**
+ * Single lap stopwatch/timer.
+ * @param approxUpdateResolution interval at which to update elapsedTime
+ */
+export function useStopwatch(
+  approxUpdateResolution = 10 /** milliseconds */,
+): StopwatchHook {
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setRunning] = useState(false);
-
-  const elapsedTime = useMemo(() => currentTime - startTime, [
-    startTime,
-    currentTime,
-  ]);
 
   useEffect(() => {
     if (isRunning) {
-      setStartTime(performance.now());
+      const startTime = performance.now();
       const id = setInterval(
-        () => setCurrentTime(performance.now()),
-        checkWindow,
+        () => setElapsedTime(performance.now() - startTime),
+        approxUpdateResolution,
       );
-      return () => {
-        setCurrentTime(performance.now());
+      return (): void => {
+        setElapsedTime(performance.now() - startTime);
         clearInterval(id);
       };
     }
     return undefined;
-  }, [isRunning]);
+  }, [approxUpdateResolution, isRunning]);
 
-  const stop = () => setRunning(false);
-  const start = () => {
+  const stop: StopFunction = () => setRunning(false);
+  const start: StartFunction = () => {
     setRunning(true);
     return stop;
   };
