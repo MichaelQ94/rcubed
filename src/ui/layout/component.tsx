@@ -64,7 +64,7 @@ const getMargin = (margin: Margin = {}): string[] => {
 const Layout: FunctionComponent<Props> = (props: Props) => {
   const fullWidth = "fullWidth";
 
-  const paddingClass = classNames([
+  const layoutClass = classNames([
     props.className,
     ...getPadding(props.padding),
     ...getMargin(props.margin),
@@ -78,7 +78,7 @@ const Layout: FunctionComponent<Props> = (props: Props) => {
     props.fullWidth ? fullWidth : "",
   ]);
 
-  return <div className={paddingClass}>{props.children}</div>;
+  return <div className={layoutClass}>{props.children}</div>;
 };
 
 export default Layout;

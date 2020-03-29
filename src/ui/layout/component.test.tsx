@@ -1,5 +1,5 @@
-import React from "react";
 import { shallow } from "enzyme";
+import React from "react";
 import Layout from "./component";
 import * as Models from "./models";
 

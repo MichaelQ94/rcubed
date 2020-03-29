@@ -16,7 +16,7 @@ const SideBar: React.FunctionComponent<PublicProps> = () => {
         padding={{ x: 1, y: 1 }}
         className="header"
       >
-        <h1 className="shifting-rainbow-text">RCubed</h1>
+        <h1 className="shifting-rainbow-text">RCUBED</h1>
       </Layout>
     </Layout>
   );

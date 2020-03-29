@@ -1,10 +1,12 @@
 import * as React from "react";
-import { Layout, Display, JustifyContent, AlignItems } from "ui";
+import { Layout, Display, JustifyContent, AlignItems, Box } from "ui";
 import "./style.scss";
 
 type PublicProps = {};
 
 const Content: React.FunctionComponent<PublicProps> = () => {
+  const scramble = "B2 U2 L2 B2 F U2 R2 F L2 F U2 R' D2 U F2 U' B F' R B2";
+
   return (
     <Layout
       display={Display.Flex}
@@ -14,7 +16,9 @@ const Content: React.FunctionComponent<PublicProps> = () => {
       className="content"
       fullWidth
     >
-      TIMER
+      <Box>
+        <span className="scramble">{scramble}</span>
+      </Box>
     </Layout>
   );
 };
