@@ -62,7 +62,7 @@ const getMargin = (margin: Margin = {}): string[] => {
 };
 
 const Layout: FunctionComponent<Props> = (props: Props) => {
-  const fullWidth = "fullWidth";
+  const fullWidth = "full-width";
 
   const layoutClass = classNames([
     props.className,

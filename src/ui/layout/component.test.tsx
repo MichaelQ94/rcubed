@@ -18,6 +18,11 @@ describe("<Layout /> renders", () => {
     expect(wrapper.exists(".test-selector")).toEqual(true);
   });
 
+  it("should append full width", () => {
+    const wrapper = shallow(<Layout fullWidth />);
+    expect(wrapper.exists(".full-width")).toEqual(true);
+  });
+
   describe("should append padding", () => {
     it("accepts x and y", () => {
       const wrapper = shallow(<Layout padding={{ x: 1, y: 1 }} />);
