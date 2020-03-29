@@ -23,6 +23,7 @@ interface PublicProps {
   alignItems?: AlignItems;
   alignContent?: AlignContent;
   position?: Position;
+  fullWidth?: boolean;
 }
 
 interface Spacing {
@@ -35,7 +36,7 @@ interface Spacing {
   [key: string]: Size | undefined;
 }
 
-type Size = 1 | 2 | 3 | 4 | 5;
+type Size = 0 | 1 | 2 | 3 | 4 | 5;
 type Padding = Spacing;
 type Margin = Spacing;
 type Props = PublicProps;
@@ -61,6 +62,8 @@ const getMargin = (margin: Margin = {}): string[] => {
 };
 
 const Layout: FunctionComponent<Props> = (props: Props) => {
+  const fullWidth = "fullWidth";
+
   const paddingClass = classNames([
     props.className,
     ...getPadding(props.padding),
@@ -72,6 +75,7 @@ const Layout: FunctionComponent<Props> = (props: Props) => {
     props.alignItems,
     props.alignContent,
     props.position,
+    props.fullWidth ? fullWidth : "",
   ]);
 
   return <div className={paddingClass}>{props.children}</div>;

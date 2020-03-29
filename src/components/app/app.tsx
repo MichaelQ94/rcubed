@@ -1,25 +1,20 @@
 import * as React from "react";
-import { Layout, Display, JustifyContent } from "ui";
+import Content from "components/content";
+import SideBar from "components/sidebar";
+import { Display, JustifyContent, Layout } from "ui";
 import "./app.scss";
 
-type AppProps = {
-  message: string;
-};
+type AppProps = {};
 
-const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
+const App: React.FunctionComponent<AppProps> = () => {
   return (
     <Layout
       display={Display.Flex}
-      justifyContent={JustifyContent.Center}
+      justifyContent={JustifyContent.SpaceBetween}
       className="container"
     >
-      <Layout
-        margin={{ x: 1, y: 1 }}
-        padding={{ x: 1, y: 1 }}
-        className="header"
-      >
-        <h1 className="shifting-rainbow-text">{props.message}</h1>
-      </Layout>
+      <SideBar />
+      <Content />
     </Layout>
   );
 };
