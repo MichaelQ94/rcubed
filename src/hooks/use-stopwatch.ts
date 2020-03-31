@@ -14,25 +14,26 @@ export type StopwatchHook = {
  * Single lap stopwatch/timer.
  * @param approxUpdateResolution interval at which to update elapsedTime
  */
-export function useStopwatch(
+function useStopwatch(
   approxUpdateResolution = 10 /** milliseconds */,
 ): StopwatchHook {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setRunning] = useState(false);
 
   useEffect(() => {
-    if (isRunning) {
-      const startTime = performance.now();
-      const id = setInterval(
-        () => setElapsedTime(performance.now() - startTime),
-        approxUpdateResolution,
-      );
-      return (): void => {
-        setElapsedTime(performance.now() - startTime);
-        clearInterval(id);
-      };
+    if (!isRunning) {
+      return undefined;
     }
-    return undefined;
+
+    const startTime = performance.now();
+    const id = setInterval(
+      () => setElapsedTime(performance.now() - startTime),
+      approxUpdateResolution,
+    );
+    return (): void => {
+      setElapsedTime(performance.now() - startTime);
+      clearInterval(id);
+    };
   }, [approxUpdateResolution, isRunning]);
 
   const stop: StopFunction = () => setRunning(false);
@@ -45,3 +46,5 @@ export function useStopwatch(
     stop,
   };
 }
+
+export default useStopwatch;
