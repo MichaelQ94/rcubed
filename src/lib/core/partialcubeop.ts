@@ -66,3 +66,17 @@ export function counterClockwiseQuarterTurn(
       }
     : { face, row, column };
 }
+
+export function halfTurn(
+  { face, row, column }: CubeIndex,
+  faceToTurn: Face,
+  dimension: number,
+): CubeIndex {
+  return face === faceToTurn
+    ? {
+        face,
+        row: dimension - 1 - row,
+        column: dimension - 1 - column,
+      }
+    : { face, row, column };
+}
