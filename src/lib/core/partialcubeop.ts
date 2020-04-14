@@ -66,3 +66,32 @@ export function counterClockwiseQuarterTurn(
       }
     : { face, row, column };
 }
+
+/**
+ * Equivalent to applying either of the quarter turn partial operations twice. Let F be the value of
+ * `faceToTurn`, then this will apply the tranformation:
+ *
+ *    {F00} {F01} {F02}      {F22} {F21} {F20}
+ *    {F10} {F11} {F12}  ->  {F12} {F11} {F10}
+ *    {F20} {F21} {F22}      {F02} {F01} {F00}
+ *
+ * Facelets occupying all other positions will unaffected, including those on faces
+ * adjacent to `faceToTurn`.
+ *
+ * @param {CubeIndex} position The starting position of the facelet to be moved
+ * @param {Face} faceToTurn The cube face to be rotated by this operation
+ * @param dimension The dimension of the cube being acted on
+ */
+export function halfTurn(
+  { face, row, column }: CubeIndex,
+  faceToTurn: Face,
+  dimension: number,
+): CubeIndex {
+  return face === faceToTurn
+    ? {
+        face,
+        row: dimension - 1 - row,
+        column: dimension - 1 - column,
+      }
+    : { face, row, column };
+}
