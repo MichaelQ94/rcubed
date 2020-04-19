@@ -536,3 +536,358 @@ describe("3x3 half turn", () => {
 
   expectAllOtherFacesUnaffected(CUBE_FACE_3X3, partial.halfTurn);
 });
+
+const CUBE_M_LAYER_2X2 = {
+  dimension: 2,
+  layer: 0,
+  columns: {
+    U: [
+      {
+        face: Face.U,
+        row: 0,
+        column: 0,
+      },
+      {
+        face: Face.U,
+        row: 1,
+        column: 0,
+      },
+    ],
+    F: [
+      {
+        face: Face.F,
+        row: 0,
+        column: 0,
+      },
+      {
+        face: Face.F,
+        row: 1,
+        column: 0,
+      },
+    ],
+    D: [
+      {
+        face: Face.D,
+        row: 0,
+        column: 0,
+      },
+      {
+        face: Face.D,
+        row: 1,
+        column: 0,
+      },
+    ],
+    B: [
+      {
+        face: Face.B,
+        row: 1,
+        column: 1,
+      },
+      {
+        face: Face.B,
+        row: 0,
+        column: 1,
+      },
+    ],
+  },
+};
+
+const CUBE_M_LAYER_3X3 = {
+  dimension: 3,
+  layer: 2,
+  columns: {
+    U: [
+      {
+        face: Face.U,
+        row: 0,
+        column: 2,
+      },
+      {
+        face: Face.U,
+        row: 1,
+        column: 2,
+      },
+      {
+        face: Face.U,
+        row: 2,
+        column: 2,
+      },
+    ],
+    F: [
+      {
+        face: Face.F,
+        row: 0,
+        column: 2,
+      },
+      {
+        face: Face.F,
+        row: 1,
+        column: 2,
+      },
+      {
+        face: Face.F,
+        row: 2,
+        column: 2,
+      },
+    ],
+    D: [
+      {
+        face: Face.D,
+        row: 0,
+        column: 2,
+      },
+      {
+        face: Face.D,
+        row: 1,
+        column: 2,
+      },
+      {
+        face: Face.D,
+        row: 2,
+        column: 2,
+      },
+    ],
+    B: [
+      {
+        face: Face.B,
+        row: 2,
+        column: 0,
+      },
+      {
+        face: Face.B,
+        row: 1,
+        column: 0,
+      },
+      {
+        face: Face.B,
+        row: 0,
+        column: 0,
+      },
+    ],
+  },
+};
+
+type UnaryOp<T> = (_: T) => T;
+
+function expectUnaffected(
+  { face, row, column }: CubeIndex,
+  operation: UnaryOp<CubeIndex>,
+): void {
+  const position = { face, row, column };
+  it(`{${face}${row}${column}} -> {${face}${row}${column}}`, () =>
+    expect(operation(position)).toEqual(position));
+}
+
+function expectFaceUnaffected(
+  face: Face,
+  dimension: number,
+  operation: UnaryOp<CubeIndex>,
+): void {
+  describe(`does not affect face ${face}`, () => {
+    for (let row = 0; row < dimension; row += 1) {
+      for (let column = 0; column < dimension; column += 1) {
+        expectUnaffected({ face, row, column }, operation);
+      }
+    }
+  });
+}
+
+function expectColumnUnaffected(
+  face: Face,
+  column: number,
+  dimension: number,
+  operation: UnaryOp<CubeIndex>,
+): void {
+  describe(`does not affect column ${column} of face ${face}`, () => {
+    for (let row = 0; row < dimension; row += 1) {
+      expectUnaffected({ face, row, column }, operation);
+    }
+  });
+}
+
+function expectColumnMapsToColumn(
+  description: string,
+  input: CubeIndex[],
+  expectedOutput: CubeIndex[],
+  operation: UnaryOp<CubeIndex>,
+): void {
+  describe(description, () =>
+    input.forEach(({ face, row, column }, index) => {
+      const image = expectedOutput[index];
+      it(`{${face}${row}${column}} -> {${image.face}${image.row}${image.column}}`, () =>
+        expect(operation({ face, row, column })).toEqual(image));
+    }),
+  );
+}
+
+describe("2x2 M slice of layer 0", () => {
+  const { dimension, layer, columns } = CUBE_M_LAYER_2X2;
+  const operation = (position: CubeIndex): CubeIndex =>
+    partial.mSlice(position, layer, dimension);
+
+  expectColumnUnaffected(Face.U, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face U to column 0 of face F",
+    columns.U,
+    columns.F,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.F, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face F to column 0 of face D",
+    columns.F,
+    columns.D,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.D, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face D to column 1 of face B and reverses orientation",
+    columns.D,
+    columns.B,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.B, 0, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 1 of face B to column 0 of face U and reverses orientation",
+    columns.B,
+    columns.U,
+    operation,
+  );
+
+  expectFaceUnaffected(Face.R, dimension, operation);
+  expectFaceUnaffected(Face.L, dimension, operation);
+});
+
+describe("2x2 reverse M slice of layer 0", () => {
+  const { dimension, layer, columns } = CUBE_M_LAYER_2X2;
+  const operation = (position: CubeIndex): CubeIndex =>
+    partial.reverseMSlice(position, layer, dimension);
+
+  expectColumnUnaffected(Face.U, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face U to column 1 of face B and reverses orientation",
+    columns.U,
+    columns.B,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.F, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face F to column 0 of face U",
+    columns.F,
+    columns.U,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.D, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face D to column 1 of face F",
+    columns.D,
+    columns.F,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.B, 0, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 1 of face B to column 0 of face D and reverses orientation",
+    columns.B,
+    columns.D,
+    operation,
+  );
+
+  expectFaceUnaffected(Face.R, dimension, operation);
+  expectFaceUnaffected(Face.L, dimension, operation);
+});
+
+describe("3x3 M slice of layer 2", () => {
+  const { dimension, layer, columns } = CUBE_M_LAYER_3X3;
+  const operation = (position: CubeIndex): CubeIndex =>
+    partial.mSlice(position, layer, dimension);
+
+  expectColumnUnaffected(Face.U, 0, dimension, operation);
+  expectColumnUnaffected(Face.U, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 2 of face U to column 2 of face F",
+    columns.U,
+    columns.F,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.F, 0, dimension, operation);
+  expectColumnUnaffected(Face.F, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 2 of face F to column 2 of face D",
+    columns.F,
+    columns.D,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.D, 0, dimension, operation);
+  expectColumnUnaffected(Face.D, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 2 of face D to column 0 of face B and reverses orientation",
+    columns.D,
+    columns.B,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.B, 1, dimension, operation);
+  expectColumnUnaffected(Face.B, 2, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face B to column 2 of face U and reverses orientation",
+    columns.B,
+    columns.U,
+    operation,
+  );
+
+  expectFaceUnaffected(Face.R, dimension, operation);
+  expectFaceUnaffected(Face.L, dimension, operation);
+});
+
+describe("3x3 reverse M slice of layer 2", () => {
+  const { dimension, layer, columns } = CUBE_M_LAYER_3X3;
+  const operation = (position: CubeIndex): CubeIndex =>
+    partial.reverseMSlice(position, layer, dimension);
+
+  expectColumnUnaffected(Face.U, 0, dimension, operation);
+  expectColumnUnaffected(Face.U, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 2 of face U to column 0 of face B and reverses orientation",
+    columns.U,
+    columns.B,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.F, 0, dimension, operation);
+  expectColumnUnaffected(Face.F, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 2 of face F to column 2 of face U",
+    columns.F,
+    columns.U,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.D, 0, dimension, operation);
+  expectColumnUnaffected(Face.D, 1, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 2 of face D to column 0 of face F",
+    columns.D,
+    columns.F,
+    operation,
+  );
+
+  expectColumnUnaffected(Face.B, 1, dimension, operation);
+  expectColumnUnaffected(Face.B, 2, dimension, operation);
+  expectColumnMapsToColumn(
+    "sends column 0 of face B to column 2 of face D and reverses orientation",
+    columns.B,
+    columns.D,
+    operation,
+  );
+
+  expectFaceUnaffected(Face.R, dimension, operation);
+  expectFaceUnaffected(Face.L, dimension, operation);
+});
