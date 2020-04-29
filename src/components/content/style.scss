@@ -1,0 +1,11 @@
+@import "ui/variables";
+
+.content {
+  background-color: $background-color-white;
+
+  .scramble {
+    word-spacing: $font-size-1;
+    font-size: $font-size-4;
+    font-weight: 100;
+  }
+}
