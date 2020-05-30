@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { Layout } from "ui";
 import useStopwatch from "hooks/use-stopwatch";
+import { Layout } from "ui";
 
 const Stopwatch: FunctionComponent = () => {
   const { elapsedTime, start, stop, isRunning } = useStopwatch();

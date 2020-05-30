@@ -1,0 +1,39 @@
+$time-font-size: 1em;
+$button-font-size: 2vw;
+
+.time-display {
+  font-size: $time-font-size;
+};
+$background-color: #ffe8b5;
+
+$x1: 0.08em;
+$y1: 0.08em;
+$darkblur: 0.07em;
+$dark-shadow: darken($background-color, 5%);
+$x2: -0.05em;
+$y2: -0.05em;
+$lightblur: 0.08em;
+$light-shadow: lighten($background-color, 5%);
+
+$dark-gradient: lighten($dark-shadow, 5%);
+$light-gradient: darken($light-shadow, 5%);
+
+.stopwatch-button {
+  font-size: $button-font-size;
+  width: 2em;
+  height: 1em;
+  border-radius: .5em;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  
+  background: linear-gradient(-45deg, $dark-gradient, $light-gradient);
+  box-shadow: $x1 $y1 $darkblur $dark-shadow, $x2 $y2 $lightblur $light-shadow; 
+
+}
+
+.stopwatch-button:active {
+  background: linear-gradient(-45deg, $light-gradient, $dark-gradient);
+  box-shadow: $x1 $y1 $darkblur $light-shadow, $x2 $y2 $lightblur $dark-shadow; 
+}
+
