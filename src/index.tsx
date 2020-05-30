@@ -1,8 +1,7 @@
-import * as ReactDOM from "react-dom";
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import App from "components/app";
 
 window.addEventListener("DOMContentLoaded", () => {
-  const greeting = "Hello RCubed";
-  ReactDOM.render(<App message={greeting} />, document.getElementById("root"));
+  ReactDOM.render(<App />, document.getElementById("root"));
 });

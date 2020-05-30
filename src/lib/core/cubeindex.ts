@@ -16,9 +16,19 @@ export const enum Face {
   D,
 }
 
+export const FACES = [Face.U, Face.L, Face.F, Face.R, Face.B, Face.D];
+
+/**
+ * Represents the coordinates of a "slot" on a Rubik's cube which can be occupied by a facelet.
+ */
 export interface CubeIndex {
+  // The face coordinate of a given facelet position.
   readonly face: number;
+
+  // The row coordinatte of the facelet's current position.
   readonly row: number;
+
+  // The column coordinate of the facelet's current position.
   readonly column: number;
 }
 

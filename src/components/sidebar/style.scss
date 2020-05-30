@@ -1,0 +1,15 @@
+@import "ui/variables";
+
+.sidebar {
+  background: linear-gradient(#a371ed, #a564d6);
+  width: 30rem;
+  overflow: scroll;
+
+  .header {
+    font-size: $font-size-3;
+
+    h1 {
+      font-weight: 100;
+    }
+  }
+}

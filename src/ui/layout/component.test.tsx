@@ -1,5 +1,5 @@
-import React from "react";
 import { shallow } from "enzyme";
+import React from "react";
 import Layout from "./component";
 import * as Models from "./models";
 
@@ -16,6 +16,11 @@ describe("<Layout /> renders", () => {
       </Layout>,
     );
     expect(wrapper.exists(".test-selector")).toEqual(true);
+  });
+
+  it("should append full width", () => {
+    const wrapper = shallow(<Layout fullWidth />);
+    expect(wrapper.exists(".full-width")).toEqual(true);
   });
 
   describe("should append padding", () => {
