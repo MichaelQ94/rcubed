@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import useStopwatch from "hooks/use-stopwatch";
-import { Layout } from "ui";
+import { Layout, Box } from "ui";
+import "./style.scss";
 
 const Stopwatch: FunctionComponent = () => {
   const { elapsedTime, start, stop, isRunning } = useStopwatch();
@@ -13,7 +14,9 @@ const Stopwatch: FunctionComponent = () => {
 
   return (
     <Layout onClick={clickHandler}>
-      <span>{elapsedSeconds}</span>
+      <Box>
+        <span className="elapsedTime">{elapsedSeconds}</span>
+      </Box>
     </Layout>
   );
 };

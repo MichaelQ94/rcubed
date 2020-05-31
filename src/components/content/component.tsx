@@ -1,20 +1,12 @@
 import * as React from "react";
+import Scramble from "components/scramble";
 import Stopwatch from "components/stopwatch";
-import {
-  Layout,
-  Display,
-  JustifyContent,
-  AlignItems,
-  Box,
-  FlexDirection,
-} from "ui";
+import { Layout, Display, JustifyContent, AlignItems, FlexDirection } from "ui";
 import "./style.scss";
 
 type PublicProps = {};
 
 const Content: React.FunctionComponent<PublicProps> = () => {
-  const scramble = "B2 U2 L2 B2 F U2 R2 F L2 F U2 R' D2 U F2 U' B F' R B2";
-
   return (
     <Layout
       display={Display.Flex}
@@ -25,12 +17,8 @@ const Content: React.FunctionComponent<PublicProps> = () => {
       className="content"
       fullWidth
     >
-      <Box>
-        <Stopwatch />
-      </Box>
-      <Box>
-        <span className="scramble">{scramble}</span>
-      </Box>
+      <Stopwatch />
+      <Scramble />
     </Layout>
   );
 };
