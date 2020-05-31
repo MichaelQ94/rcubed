@@ -120,6 +120,7 @@ module.exports = {
   setupFilesAfterEnv: [
     "@testing-library/jest-dom/extend-expect",
     "<rootDir>/src/tests/test-helper.ts",
+    "<rootDir>/src/tests/performance.js",
   ],
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
