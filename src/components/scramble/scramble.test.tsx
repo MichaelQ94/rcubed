@@ -1,6 +1,6 @@
 import { shallow } from "enzyme";
 import React from "react";
-import Scramble from "./component";
+import Scramble from "./scramble";
 import { Box } from "ui";
 
 describe("<Scramble /> renders", () => {
