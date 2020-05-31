@@ -4,18 +4,24 @@ import { Layout, Box } from "ui";
 import "./style.scss";
 
 const Stopwatch: FunctionComponent = () => {
-  const { elapsedTime, start, stop, isRunning } = useStopwatch();
+  const [elapsedTime, isRunning, start, stop] = useStopwatch();
   const clickHandler = React.useCallback(() => (isRunning ? stop() : start()), [
     start,
     stop,
     isRunning,
   ]);
-  const elapsedSeconds = (elapsedTime / 1000).toFixed(2);
+
+  const toTimeString = (time: number): string => (time / 1000).toFixed(2);
+
+  const textToDisplay = React.useMemo(
+    () => (isRunning || elapsedTime > 0 ? toTimeString(elapsedTime) : "Start"),
+    [isRunning, elapsedTime],
+  );
 
   return (
-    <Layout onClick={clickHandler}>
-      <Box>
-        <span className="elapsedTime">{elapsedSeconds}</span>
+    <Layout onClick={clickHandler} className={"boxContainer"}>
+      <Box className={"stopwatchBox"}>
+        <span className="elapsedTime">{textToDisplay}</span>
       </Box>
     </Layout>
   );

@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 
 type StartFunction = () => void;
 type StopFunction = () => void;
+type ElapsedTime = number;
+type RunningState = boolean;
 
-export type StopwatchHook = {
-  elapsedTime: number;
-  isRunning: boolean;
-  start: StartFunction;
-  stop: StopFunction;
-};
+export type StopwatchHook = [
+  ElapsedTime,
+  RunningState,
+  StartFunction,
+  StopFunction,
+];
 
 /**
  * Single lap stopwatch/timer.
@@ -39,12 +41,7 @@ function useStopwatch(
   const stop: StopFunction = () => setRunning(false);
   const start: StartFunction = () => setRunning(true);
 
-  return {
-    elapsedTime,
-    isRunning,
-    start,
-    stop,
-  };
+  return [elapsedTime, isRunning, start, stop];
 }
 
 export default useStopwatch;
