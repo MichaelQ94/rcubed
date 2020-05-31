@@ -1,5 +1,13 @@
 import * as React from "react";
-import { Layout, Display, JustifyContent, AlignItems, Box } from "ui";
+import Stopwatch from "components/stopwatch";
+import {
+  Layout,
+  Display,
+  JustifyContent,
+  AlignItems,
+  Box,
+  FlexDirection,
+} from "ui";
 import "./style.scss";
 
 type PublicProps = {};
@@ -10,12 +18,16 @@ const Content: React.FunctionComponent<PublicProps> = () => {
   return (
     <Layout
       display={Display.Flex}
+      flexDirection={FlexDirection.Column}
       justifyContent={JustifyContent.Center}
       alignItems={AlignItems.Center}
       padding={{ x: 1, y: 1 }}
       className="content"
       fullWidth
     >
+      <Box>
+        <Stopwatch />
+      </Box>
       <Box>
         <span className="scramble">{scramble}</span>
       </Box>

@@ -4,9 +4,6 @@ import { Layout } from "ui";
 
 const Stopwatch: FunctionComponent = () => {
   const { elapsedTime, start, stop, isRunning } = useStopwatch();
-  const buttonLabel = React.useMemo(() => (isRunning ? "Stop" : "Start"), [
-    isRunning,
-  ]);
   const clickHandler = React.useCallback(() => (isRunning ? stop() : start()), [
     start,
     stop,
@@ -15,9 +12,8 @@ const Stopwatch: FunctionComponent = () => {
   const elapsedSeconds = (elapsedTime / 1000).toFixed(2);
 
   return (
-    <Layout>
-      <h2 className="shifting-rainbow-text">{elapsedSeconds}</h2>
-      <button onClick={clickHandler}>{buttonLabel}</button>
+    <Layout onClick={clickHandler}>
+      <span>{elapsedSeconds}</span>
     </Layout>
   );
 };
