@@ -3,8 +3,6 @@ import React, { FunctionComponent, ReactNode } from "react";
 import { Layout } from "ui/layout";
 import "./style.scss";
 
-// type LayoutProps = NonNullable<typeof Layout["defaultProps"]>;
-
 type BoxProps = {
   children?: ReactNode;
   className?: string;
