@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent, ReactNode, EventHandler } from "react";
 import {
   AlignContent,
   AlignItems,
@@ -24,6 +24,7 @@ interface PublicProps {
   alignContent?: AlignContent;
   position?: Position;
   fullWidth?: boolean;
+  onClick?: EventHandler<React.SyntheticEvent<HTMLDivElement, Event>>;
 }
 
 interface Spacing {
@@ -78,7 +79,11 @@ const Layout: FunctionComponent<Props> = (props: Props) => {
     props.fullWidth ? fullWidth : "",
   ]);
 
-  return <div className={layoutClass}>{props.children}</div>;
+  return (
+    <div className={layoutClass} onClick={props?.onClick}>
+      {props.children}
+    </div>
+  );
 };
 
 export default Layout;
