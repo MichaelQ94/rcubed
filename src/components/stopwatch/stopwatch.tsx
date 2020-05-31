@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import useStopwatch from "lib/hooks/use-stopwatch";
+import useStopwatch from "components/stopwatch/use-stopwatch";
 import { Layout, Box } from "ui";
 import "./style.scss";
 
